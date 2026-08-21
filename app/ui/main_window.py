@@ -16,31 +16,31 @@ from app.plotting import (
 
 
 GRAPH_TYPES = {
-    "f x 1/lambda": "frequency_inverse_wavelength",
-    "lambda x 1/n": "wavelength_inverse_harmonic",
-    "v x sqrt(tau)": "velocity_sqrt_tension",
+    "Frequência em função do inverso do comprimento de onda": "frequency_inverse_wavelength",
+    "Comprimento de onda em função do inverso do número harmônico": "wavelength_inverse_harmonic",
+    "Velocidade em função da raiz quadrada da tensão": "velocity_sqrt_tension",
 }
 
 GRAPH_COLUMNS = {
     "frequency_inverse_wavelength": (
         ("n", "n"),
-        ("f (Hz)", "frequency_hz"),
-        ("lambda (m)", "lambda_m"),
-        ("delta lambda (m)", "delta_lambda_m"),
-        ("delta f (Hz)", "delta_frequency_hz"),
+        ("Frequência (Hz)", "frequency_hz"),
+        ("Comprimento de onda (m)", "lambda_m"),
+        ("Incerteza do comprimento (m)", "delta_lambda_m"),
+        ("Incerteza da frequência (Hz)", "delta_frequency_hz"),
     ),
     "wavelength_inverse_harmonic": (
         ("n", "harmonic_n"),
-        ("lambda (m)", "lambda_m"),
-        ("delta lambda (m)", "delta_lambda_m"),
+        ("Comprimento de onda (m)", "lambda_m"),
+        ("Incerteza do comprimento (m)", "delta_lambda_m"),
     ),
     "velocity_sqrt_tension": (
-        ("m (kg)", "mass_kg"),
-        ("f (Hz)", "frequency_hz"),
-        ("lambda (m)", "lambda_m"),
-        ("delta m (kg)", "delta_mass_kg"),
-        ("delta f (Hz)", "delta_frequency_hz"),
-        ("delta lambda (m)", "delta_lambda_m"),
+        ("Massa (kg)", "mass_kg"),
+        ("Frequência (Hz)", "frequency_hz"),
+        ("Comprimento de onda (m)", "lambda_m"),
+        ("Incerteza da massa (kg)", "delta_mass_kg"),
+        ("Incerteza da frequência (Hz)", "delta_frequency_hz"),
+        ("Incerteza do comprimento (m)", "delta_lambda_m"),
     ),
 }
 
@@ -101,13 +101,13 @@ class MainWindow:
         )
         experiment = ttk.Combobox(
             controls,
-            values=["Movimento ondulatorio: onda na corda"],
+            values=["Movimento ondulatório: onda na corda"],
             state="readonly",
         )
-        experiment.set("Movimento ondulatorio: onda na corda")
+        experiment.set("Movimento ondulatório: onda na corda")
         experiment.grid(row=1, column=0, sticky="ew", pady=(0, 14))
 
-        ttk.Label(controls, text="Tipo de grafico", font=("Segoe UI", 11, "bold")).grid(
+        ttk.Label(controls, text="Tipo de gráfico", font=("Segoe UI", 11, "bold")).grid(
             row=2, column=0, sticky="w", pady=(0, 4)
         )
         graph_selector = ttk.Combobox(
@@ -130,7 +130,7 @@ class MainWindow:
         ttk.Button(table_buttons, text="Adicionar linha", command=self._add_row).grid(row=0, column=0, padx=(0, 6))
         ttk.Button(table_buttons, text="Remover linha", command=self._remove_row).grid(row=0, column=1)
 
-        export_section = ttk.LabelFrame(controls, text="Exportacao PNG", padding=8)
+        export_section = ttk.LabelFrame(controls, text="Exportação PNG", padding=8)
         export_section.grid(row=5, column=0, sticky="ew", pady=(0, 12))
         for column in range(3):
             export_section.columnconfigure(column, weight=1)
@@ -149,12 +149,12 @@ class MainWindow:
         self.export_button.grid(row=0, column=1, sticky="ew", padx=(5, 0))
         ttk.Label(controls, textvariable=self.status_var, wraplength=320).grid(row=7, column=0, sticky="w", pady=(10, 0))
 
-        ttk.Label(preview, text="Preview", font=("Segoe UI", 12, "bold")).grid(row=0, column=0, sticky="w", pady=(0, 8))
+        ttk.Label(preview, text="Visualização", font=("Segoe UI", 12, "bold")).grid(row=0, column=0, sticky="w", pady=(0, 8))
         self.preview_frame = ttk.Frame(preview, relief="sunken", borderwidth=1)
         self.preview_frame.grid(row=1, column=0, sticky="nsew")
         self.preview_frame.columnconfigure(0, weight=1)
         self.preview_frame.rowconfigure(0, weight=1)
-        ttk.Label(self.preview_frame, text="O grafico aparecera aqui.").grid(row=0, column=0)
+        ttk.Label(self.preview_frame, text="O gráfico aparecerá aqui.").grid(row=0, column=0)
 
     def _refresh_table(self) -> None:
         for child in self.table_frame.winfo_children():
@@ -235,7 +235,7 @@ class MainWindow:
             self.current_figure = figure
             self.current_config = config
             self.export_button.configure(state="normal")
-            self.status_var.set("Grafico gerado. Voce pode revisar o preview ou exportar o PNG.")
+            self.status_var.set("Gráfico gerado. Você pode revisar a visualização ou exportar o PNG.")
         except (ValueError, TypeError) as error:
             messagebox.showerror("Nao foi possivel gerar o grafico", str(error), parent=self.root)
 

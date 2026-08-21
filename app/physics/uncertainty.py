@@ -8,7 +8,7 @@ def format_value_with_uncertainty(
     unit: str = "",
 ) -> str:
     value = 0.0 if abs(value) < 0.005 else value
-    formatted = f"({value:.2f} +/- {uncertainty:.2f})"
+    formatted = f"({value:.2f} ± {uncertainty:.2f})"
     return f"{formatted} {unit}" if unit else formatted
 
 

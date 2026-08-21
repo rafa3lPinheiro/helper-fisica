@@ -18,8 +18,8 @@ def test_wavelength_inverse_harmonic_calculates_expected_slope_and_compatibility
     np.testing.assert_allclose(result.expected_slope, 1.2)
     np.testing.assert_allclose(result.expected_slope_uncertainty, 0.02)
     assert result.compatible_with_expected is True
-    assert "2L = (1.20 +/- 0.02) m" in result.parameter_text
-    assert "Compativel dentro das incertezas: sim" in result.parameter_text
+    assert "Valor esperado (2L) = (1.20 ± 0.02) m" in result.parameter_text
+    assert "Compatível dentro das incertezas: sim" in result.parameter_text
 
 
 def test_wavelength_inverse_harmonic_marks_incompatible_result() -> None:
@@ -32,7 +32,7 @@ def test_wavelength_inverse_harmonic_marks_incompatible_result() -> None:
     )
 
     assert result.compatible_with_expected is False
-    assert "Compativel dentro das incertezas: nao" in result.parameter_text
+    assert "Compatível dentro das incertezas: nao" in result.parameter_text
 
 
 def test_wavelength_inverse_harmonic_keeps_compatibility_indeterminate_without_length_uncertainty() -> None:
