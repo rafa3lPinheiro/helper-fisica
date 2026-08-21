@@ -22,6 +22,10 @@ Dependencias Python do MVP:
 - SciPy
 - Matplotlib
 
+Dependencias de desenvolvimento:
+
+- Pytest
+
 ## Instalacao
 
 ```powershell
@@ -45,6 +49,20 @@ necessario instalar o pacote de sistema correspondente, como `python3-tk`.
 
 ```bash
 python -m app.main
+```
+
+## Testes
+
+Instale as dependencias de desenvolvimento:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Depois rode:
+
+```bash
+python -m pytest
 ```
 
 ## Graficos previstos no MVP
