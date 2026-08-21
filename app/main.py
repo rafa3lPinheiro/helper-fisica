@@ -1,15 +1,15 @@
 """Application entrypoint for Helper Fisica."""
 
+import tkinter as tk
 
-def main() -> None:
-    """Run the desktop application.
+from app.ui.main_window import create_app
 
-    The UI will be implemented in a dedicated issue. For now this entrypoint
-    exists so the project can be executed with `python -m app.main`.
-    """
-    print("Helper Fisica - Gerador de Graficos para Fisica Experimental 2")
+
+def main(root: tk.Tk | None = None) -> None:
+    root = root or tk.Tk()
+    create_app(root)
+    root.mainloop()
 
 
 if __name__ == "__main__":
     main()
-
