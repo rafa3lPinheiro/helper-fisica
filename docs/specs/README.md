@@ -27,3 +27,4 @@ Este diretorio guarda as especificacoes vivas do projeto.
 - `issue-9-frequency-inverse-wavelength.md`: fluxo do grafico f por 1/lambda.
 - `issue-10-wavelength-inverse-harmonic.md`: fluxo do grafico lambda por 1/n.
 - `issue-11-velocity-sqrt-tension.md`: fluxo do grafico v por sqrt(tensao).
+- `issue-12-tkinter-mvp-ui.md`: interface Tkinter do MVP.
