@@ -19,3 +19,4 @@ Este diretorio guarda as especificacoes vivas do projeto.
 - `issue-1-python-scaffold.md`: scaffold Python e dependencias do MVP.
 - `issue-2-quality-baseline.md`: qualidade basica e setup de testes.
 - `issue-3-domain-models.md`: modelos de dados do dominio.
+- `issue-4-wave-physics-functions.md`: funcoes fisicas de ondas na corda.
