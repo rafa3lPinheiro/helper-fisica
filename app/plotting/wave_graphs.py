@@ -10,6 +10,12 @@ from app.physics import (
     inverse_wavelength,
     inverse_wavelength_uncertainty,
     linear_fit,
+    sqrt_tension,
+    sqrt_tension_uncertainty,
+    tension_from_mass,
+    tension_uncertainty,
+    wave_speed,
+    wave_speed_uncertainty,
 )
 
 
@@ -22,6 +28,16 @@ class WavelengthInverseHarmonicResult:
     expected_slope: float
     expected_slope_uncertainty: float | None
     compatible_with_expected: bool | None
+
+
+@dataclass
+class VelocitySqrtTensionResult:
+    plot_data: PlotData
+    fit_result: FitResult
+    fit_label: str
+    parameter_text: str
+    tension_n: NDArray[np.float64]
+    speed_m_s: NDArray[np.float64]
 
 
 def build_frequency_inverse_wavelength(
@@ -153,5 +169,77 @@ def _build_harmonic_parameter_text(
             f"R2 = {fit_result.r_squared:.3f}",
             f"2L = {expected}",
             f"Compativel dentro das incertezas: {compatibility_text}",
+        ]
+    )
+
+
+def build_velocity_sqrt_tension(
+    mass_kg: NDArray[np.float64],
+    frequency_hz: NDArray[np.float64],
+    lambda_m: NDArray[np.float64],
+    delta_mass_kg: NDArray[np.float64] | None = None,
+    delta_frequency_hz: NDArray[np.float64] | None = None,
+    delta_lambda_m: NDArray[np.float64] | None = None,
+    g: float = 9.8,
+) -> VelocitySqrtTensionResult:
+    tension_n = tension_from_mass(mass_kg, g=g)
+    speed_m_s = wave_speed(lambda_m, frequency_hz)
+    x = sqrt_tension(tension_n)
+
+    x_uncertainty = None
+    if delta_mass_kg is not None:
+        delta_tension_n = tension_uncertainty(delta_mass_kg, g=g)
+        x_uncertainty = sqrt_tension_uncertainty(tension_n, delta_tension_n)
+
+    y_uncertainty = None
+    if delta_lambda_m is not None and delta_frequency_hz is not None:
+        y_uncertainty = wave_speed_uncertainty(
+            lambda_m,
+            frequency_hz,
+            delta_lambda_m,
+            delta_frequency_hz,
+        )
+
+    plot_data = PlotData(
+        x=x,
+        y=speed_m_s,
+        x_uncertainty=x_uncertainty,
+        y_uncertainty=y_uncertainty,
+        x_label="sqrt(tau) (sqrt(N))",
+        y_label="v (m/s)",
+        title="Velocidade da onda em funcao da raiz da tensao",
+    )
+    fit_result = linear_fit(x, speed_m_s, sigma_y=y_uncertainty)
+    parameter_text = _build_velocity_parameter_text(fit_result)
+
+    return VelocitySqrtTensionResult(
+        plot_data=plot_data,
+        fit_result=fit_result,
+        fit_label="Ajuste linear",
+        parameter_text=parameter_text,
+        tension_n=tension_n,
+        speed_m_s=speed_m_s,
+    )
+
+
+def _build_velocity_parameter_text(fit_result: FitResult) -> str:
+    slope = format_value_with_uncertainty(
+        fit_result.slope,
+        fit_result.slope_uncertainty,
+        "(m/s)/sqrt(N)",
+    )
+    intercept = format_value_with_uncertainty(
+        fit_result.intercept,
+        fit_result.intercept_uncertainty,
+        "m/s",
+    )
+    return "\n".join(
+        [
+            "Ajuste linear:",
+            "v = a*sqrt(tau) + b",
+            "",
+            f"a = {slope}",
+            f"b = {intercept}",
+            f"R2 = {fit_result.r_squared:.3f}",
         ]
     )
