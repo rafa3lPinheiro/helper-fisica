@@ -7,6 +7,12 @@ from app.physics.waves import (
     tension_from_mass,
     wave_speed,
 )
+from app.physics.uncertainty import (
+    inverse_wavelength_uncertainty,
+    sqrt_tension_uncertainty,
+    tension_uncertainty,
+    wave_speed_uncertainty,
+)
 
 __all__ = [
     "inverse_harmonic",
@@ -14,4 +20,8 @@ __all__ = [
     "sqrt_tension",
     "tension_from_mass",
     "wave_speed",
+    "inverse_wavelength_uncertainty",
+    "sqrt_tension_uncertainty",
+    "tension_uncertainty",
+    "wave_speed_uncertainty",
 ]

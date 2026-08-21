@@ -31,3 +31,12 @@ Observacao retroativa:
   Para corrigir o harness do projeto, foram adicionadas specs retroativas para
   registrar objetivo, escopo, contratos, validacao e rastreabilidade desses
   recortes.
+
+## 2026-08-21 - Separacao entre incerteza e apresentacao
+
+As funcoes de propagacao de incerteza permanecerao na camada fisica, enquanto
+a formatacao textual e a decisao de desenhar barras de erro pertencerao as
+camadas de apresentacao e graficos.
+
+Motivo: manter calculos puros e reutilizaveis, sem acoplar matematica a UI ou
+Matplotlib.
