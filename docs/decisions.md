@@ -24,3 +24,10 @@ Decisoes:
   criterios de aceite, testes esperados e dependencias.
 - A issue e o commit devem apontar para o mesmo recorte de trabalho sempre que
   possivel.
+
+Observacao retroativa:
+
+- As issues #1 e #2 foram implementadas antes desta politica ficar explicita.
+  Para corrigir o harness do projeto, foram adicionadas specs retroativas para
+  registrar objetivo, escopo, contratos, validacao e rastreabilidade desses
+  recortes.

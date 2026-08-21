@@ -16,5 +16,6 @@ Este diretorio guarda as especificacoes vivas do projeto.
 ## Specs atuais
 
 - `mvp-ondas-corda.md`: spec principal do MVP.
+- `issue-1-python-scaffold.md`: scaffold Python e dependencias do MVP.
+- `issue-2-quality-baseline.md`: qualidade basica e setup de testes.
 - `issue-3-domain-models.md`: modelos de dados do dominio.
-
