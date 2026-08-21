@@ -8,6 +8,7 @@ from app.physics.waves import (
     wave_speed,
 )
 from app.physics.uncertainty import (
+    format_value_with_uncertainty,
     inverse_wavelength_uncertainty,
     sqrt_tension_uncertainty,
     tension_uncertainty,
@@ -22,6 +23,7 @@ __all__ = [
     "tension_from_mass",
     "wave_speed",
     "inverse_wavelength_uncertainty",
+    "format_value_with_uncertainty",
     "sqrt_tension_uncertainty",
     "tension_uncertainty",
     "wave_speed_uncertainty",

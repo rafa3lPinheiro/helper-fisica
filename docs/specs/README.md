@@ -24,3 +24,4 @@ Este diretorio guarda as especificacoes vivas do projeto.
 - `issue-6-linear-regression.md`: regressao linear e incerteza dos parametros.
 - `issue-7-plot-builder.md`: builder de graficos cientificos com Matplotlib.
 - `issue-8-png-export.md`: exportacao PNG com presets de tamanho e resolucao.
+- `issue-9-frequency-inverse-wavelength.md`: fluxo do grafico f por 1/lambda.
