@@ -44,6 +44,11 @@ GRAPH_COLUMNS = {
     ),
 }
 
+REFERENCE_FIELDS = (
+    ("Comprimento da corda, L (m)", "length_m"),
+    ("Incerteza de L (m)", "delta_length_m"),
+)
+
 DEFAULT_ROWS = {
     "frequency_inverse_wavelength": [
         {"n": "1", "frequency_hz": "10", "lambda_m": "0.5", "delta_lambda_m": "0.01", "delta_frequency_hz": "0.1"},
@@ -74,6 +79,8 @@ class MainWindow:
         self.width_var = tk.StringVar(value="1600")
         self.height_var = tk.StringVar(value="1000")
         self.dpi_var = tk.StringVar(value="300")
+        self.length_var = tk.StringVar(value="0.6")
+        self.delta_length_var = tk.StringVar()
         self.status_var = tk.StringVar(value="Preencha os dados e gere um grafico.")
         self.rows: list[dict[str, ttk.Entry]] = []
         self.current_figure = None
@@ -119,8 +126,19 @@ class MainWindow:
         graph_selector.grid(row=3, column=0, sticky="new", pady=(0, 14))
         graph_selector.bind("<<ComboboxSelected>>", lambda _event: self._refresh_table())
 
+        self.reference_section = ttk.LabelFrame(controls, text="Referência do experimento", padding=8)
+        self.reference_section.grid(row=4, column=0, sticky="ew", pady=(0, 12))
+        for column in range(2):
+            self.reference_section.columnconfigure(column, weight=1)
+        for column, (label, key) in enumerate(REFERENCE_FIELDS):
+            variable = self.length_var if key == "length_m" else self.delta_length_var
+            ttk.Label(self.reference_section, text=label).grid(row=0, column=column, sticky="w")
+            ttk.Entry(self.reference_section, textvariable=variable, width=14).grid(
+                row=1, column=column, sticky="ew", padx=(0, 6)
+            )
+
         table_section = ttk.LabelFrame(controls, text="Dados experimentais", padding=8)
-        table_section.grid(row=4, column=0, sticky="nsew", pady=(0, 12))
+        table_section.grid(row=5, column=0, sticky="nsew", pady=(0, 12))
         table_section.columnconfigure(0, weight=1)
         table_section.rowconfigure(1, weight=1)
         self.table_frame = ttk.Frame(table_section)
@@ -131,7 +149,7 @@ class MainWindow:
         ttk.Button(table_buttons, text="Remover linha", command=self._remove_row).grid(row=0, column=1)
 
         export_section = ttk.LabelFrame(controls, text="Exportação PNG", padding=8)
-        export_section.grid(row=5, column=0, sticky="ew", pady=(0, 12))
+        export_section.grid(row=6, column=0, sticky="ew", pady=(0, 12))
         for column in range(3):
             export_section.columnconfigure(column, weight=1)
         for column, (label, variable) in enumerate(
@@ -141,13 +159,13 @@ class MainWindow:
             ttk.Entry(export_section, textvariable=variable, width=10).grid(row=1, column=column, sticky="ew", padx=(0, 5))
 
         actions = ttk.Frame(controls)
-        actions.grid(row=6, column=0, sticky="ew")
+        actions.grid(row=7, column=0, sticky="ew")
         actions.columnconfigure(0, weight=1)
         actions.columnconfigure(1, weight=1)
         ttk.Button(actions, text="Gerar grafico", command=self._generate).grid(row=0, column=0, sticky="ew", padx=(0, 5))
         self.export_button = ttk.Button(actions, text="Exportar PNG", command=self._export, state="disabled")
         self.export_button.grid(row=0, column=1, sticky="ew", padx=(5, 0))
-        ttk.Label(controls, textvariable=self.status_var, wraplength=320).grid(row=7, column=0, sticky="w", pady=(10, 0))
+        ttk.Label(controls, textvariable=self.status_var, wraplength=320).grid(row=8, column=0, sticky="w", pady=(10, 0))
 
         ttk.Label(preview, text="Visualização", font=("Segoe UI", 12, "bold")).grid(row=0, column=0, sticky="w", pady=(0, 8))
         self.preview_frame = ttk.Frame(preview, relief="sunken", borderwidth=1)
@@ -161,6 +179,10 @@ class MainWindow:
             child.destroy()
         self.rows.clear()
         graph_key = GRAPH_TYPES[self.graph_type.get()]
+        if graph_key == "wavelength_inverse_harmonic":
+            self.reference_section.grid()
+        else:
+            self.reference_section.grid_remove()
         columns = GRAPH_COLUMNS[graph_key]
         for column, (label, _key) in enumerate(columns):
             ttk.Label(self.table_frame, text=label).grid(row=0, column=column, padx=3, pady=(0, 4), sticky="w")
@@ -222,7 +244,15 @@ class MainWindow:
                 plot_data, fit_result, fit_label, parameter_text = build_frequency_inverse_wavelength(**data)
             elif graph_key == "wavelength_inverse_harmonic":
                 data = self._collect_arrays(("harmonic_n", "lambda_m", "delta_lambda_m"))
-                data["length_m"] = 0.6
+                length_value = self.length_var.get().strip()
+                if not length_value:
+                    raise ValueError("Informe o comprimento da corda L.")
+                length_m = float(length_value)
+                delta_length_value = self.delta_length_var.get().strip()
+                data["length_m"] = length_m
+                data["delta_length_m"] = (
+                    None if not delta_length_value else float(delta_length_value)
+                )
                 result = build_wavelength_inverse_harmonic(**data)
                 plot_data, fit_result, fit_label, parameter_text = result.plot_data, result.fit_result, result.fit_label, result.parameter_text
             else:
