@@ -19,8 +19,8 @@ def test_velocity_sqrt_tension_calculates_values_and_uncertainties() -> None:
     assert result.plot_data.x_uncertainty is not None
     assert result.plot_data.y_uncertainty is not None
     assert result.fit_label == "Ajuste linear"
-    assert "a = " in result.parameter_text
-    assert "R2 = " in result.parameter_text
+    assert "Inclinação = " in result.parameter_text
+    assert "Coeficiente de determinação (R²) = " in result.parameter_text
 
 
 def test_velocity_sqrt_tension_accepts_custom_gravity() -> None:

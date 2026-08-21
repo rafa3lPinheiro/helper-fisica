@@ -57,9 +57,9 @@ def build_frequency_inverse_wavelength(
         y=frequency_hz,
         x_uncertainty=x_uncertainty,
         y_uncertainty=delta_frequency_hz,
-        x_label="1/lambda (m^-1)",
-        y_label="f (Hz)",
-        title="Frequencia em funcao do inverso do comprimento de onda",
+        x_label="Inverso do comprimento de onda (1/m)",
+        y_label="Frequência (Hz)",
+        title="Frequência em função do inverso do comprimento de onda",
     )
     fit_result = linear_fit(x, frequency_hz, sigma_y=delta_frequency_hz)
     parameter_text = _build_parameter_text(fit_result)
@@ -77,11 +77,11 @@ def _build_parameter_text(fit_result: FitResult) -> str:
     return "\n".join(
         [
             "Ajuste linear:",
-            "f = a(1/lambda) + b",
+            "f = inclinação × (1/λ) + intercepto",
             "",
-            f"a = {slope}",
-            f"b = {intercept}",
-            f"R2 = {fit_result.r_squared:.3f}",
+            f"Inclinação = {slope}",
+            f"Intercepto = {intercept}",
+            f"Coeficiente de determinação (R²) = {fit_result.r_squared:.3f}",
         ]
     )
 
@@ -99,9 +99,9 @@ def build_wavelength_inverse_harmonic(
         y=lambda_m,
         x_uncertainty=None,
         y_uncertainty=delta_lambda_m,
-        x_label="1/n",
-        y_label="lambda (m)",
-        title="Comprimento de onda em funcao de 1/n",
+        x_label="Inverso do número harmônico (1/n)",
+        y_label="Comprimento de onda (m)",
+        title="Comprimento de onda em função do inverso do número harmônico",
     )
     fit_result = linear_fit(x, lambda_m, sigma_y=delta_lambda_m)
     expected_slope = 2 * length_m
@@ -162,13 +162,13 @@ def _build_harmonic_parameter_text(
     return "\n".join(
         [
             "Ajuste linear:",
-            "lambda = a(1/n) + b",
+            "λ = inclinação × (1/n) + intercepto",
             "",
-            f"a = {slope}",
-            f"b = {intercept}",
-            f"R2 = {fit_result.r_squared:.3f}",
-            f"2L = {expected}",
-            f"Compativel dentro das incertezas: {compatibility_text}",
+            f"Inclinação = {slope}",
+            f"Intercepto = {intercept}",
+            f"Coeficiente de determinação (R²) = {fit_result.r_squared:.3f}",
+            f"Valor esperado (2L) = {expected}",
+            f"Compatível dentro das incertezas: {compatibility_text}",
         ]
     )
 
@@ -205,9 +205,9 @@ def build_velocity_sqrt_tension(
         y=speed_m_s,
         x_uncertainty=x_uncertainty,
         y_uncertainty=y_uncertainty,
-        x_label="sqrt(tau) (sqrt(N))",
-        y_label="v (m/s)",
-        title="Velocidade da onda em funcao da raiz da tensao",
+        x_label="Raiz quadrada da tensão (√N)",
+        y_label="Velocidade (m/s)",
+        title="Velocidade em função da raiz quadrada da tensão",
     )
     fit_result = linear_fit(x, speed_m_s, sigma_y=y_uncertainty)
     parameter_text = _build_velocity_parameter_text(fit_result)
@@ -236,10 +236,10 @@ def _build_velocity_parameter_text(fit_result: FitResult) -> str:
     return "\n".join(
         [
             "Ajuste linear:",
-            "v = a*sqrt(tau) + b",
+            "v = inclinação × √τ + intercepto",
             "",
-            f"a = {slope}",
-            f"b = {intercept}",
-            f"R2 = {fit_result.r_squared:.3f}",
+            f"Inclinação = {slope}",
+            f"Intercepto = {intercept}",
+            f"Coeficiente de determinação (R²) = {fit_result.r_squared:.3f}",
         ]
     )

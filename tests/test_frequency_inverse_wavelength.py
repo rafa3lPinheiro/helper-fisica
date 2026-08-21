@@ -17,9 +17,9 @@ def test_frequency_inverse_wavelength_builds_plot_data_and_fit() -> None:
     np.testing.assert_allclose(fit_result.slope, 2.0)
     np.testing.assert_allclose(fit_result.intercept, 0.0, atol=1e-12)
     assert fit_label == "Ajuste linear"
-    assert "a = (2.00 +/-" in parameter_text
-    assert "b = (0.00 +/-" in parameter_text
-    assert "R2 = 1.000" in parameter_text
+    assert "Inclinação = (2.00 ±" in parameter_text
+    assert "Intercepto = (0.00 ±" in parameter_text
+    assert "Coeficiente de determinação (R²) = 1.000" in parameter_text
 
 
 def test_frequency_inverse_wavelength_allows_missing_uncertainties() -> None:
