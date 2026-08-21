@@ -23,3 +23,4 @@ Este diretorio guarda as especificacoes vivas do projeto.
 - `issue-5-uncertainty-propagation.md`: propagacao de incertezas das grandezas derivadas.
 - `issue-6-linear-regression.md`: regressao linear e incerteza dos parametros.
 - `issue-7-plot-builder.md`: builder de graficos cientificos com Matplotlib.
+- `issue-8-png-export.md`: exportacao PNG com presets de tamanho e resolucao.
