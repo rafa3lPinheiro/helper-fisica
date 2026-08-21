@@ -21,3 +21,4 @@ Este diretorio guarda as especificacoes vivas do projeto.
 - `issue-3-domain-models.md`: modelos de dados do dominio.
 - `issue-4-wave-physics-functions.md`: funcoes fisicas de ondas na corda.
 - `issue-5-uncertainty-propagation.md`: propagacao de incertezas das grandezas derivadas.
+- `issue-6-linear-regression.md`: regressao linear e incerteza dos parametros.

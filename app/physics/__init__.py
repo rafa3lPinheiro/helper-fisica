@@ -13,6 +13,7 @@ from app.physics.uncertainty import (
     tension_uncertainty,
     wave_speed_uncertainty,
 )
+from app.physics.regression import linear_fit
 
 __all__ = [
     "inverse_harmonic",
@@ -24,4 +25,5 @@ __all__ = [
     "sqrt_tension_uncertainty",
     "tension_uncertainty",
     "wave_speed_uncertainty",
+    "linear_fit",
 ]
