@@ -12,8 +12,6 @@ nao precisam memorizar nomes internos de variaveis ou abreviacoes de codigo.
 - trocar `+/-` por `±` nos resultados;
 - explicar inclinacao e intercepto nas caixas de parametros;
 - manter nomes de argumentos Python e chaves de dados inalterados.
-- adicionar campos contextuais para `L` e `delta_L` no grafico `lambda x 1/n`;
-- remover valores fisicos fixos da interface.
 
 ## Dicionario de linguagem
 
@@ -28,16 +26,6 @@ nao precisam memorizar nomes internos de variaveis ou abreviacoes de codigo.
 | `b` | intercepto |
 | `R2` | coeficiente de determinacao (`R²`) |
 
-## Incertezas e valores de referencia
-
-- O usuario informa as incertezas experimentais na tabela, ao lado da medida.
-- A incerteza pode ficar vazia quando nao for conhecida.
-- O campo `L` e obrigatorio apenas no grafico `lambda x 1/n`.
-- `delta_L` e opcional; sem ele, o valor esperado `2L` aparece sem comparacao
-  automatica de compatibilidade.
-- A interface nao oferece um botao separado para "mostrar erros": a presenca
-  dos valores informados determina as barras de erro.
-
 ## Fora de escopo
 
 - Validacao completa de valores e quantidade minima de pontos.
@@ -49,7 +37,5 @@ nao precisam memorizar nomes internos de variaveis ou abreviacoes de codigo.
 - Os tres seletores de grafico usam linguagem natural.
 - Titulos, eixos, colunas e parametros sao compreensiveis sem consultar o
   codigo.
-- O grafico `lambda x 1/n` nao usa um comprimento da corda fixo no codigo.
-- Campos de incerteza ficam proximos das grandezas a que pertencem.
 - A unidade continua visivel em cada grandeza.
 - Testes atualizados passam sem alterar os contratos cientificos.
