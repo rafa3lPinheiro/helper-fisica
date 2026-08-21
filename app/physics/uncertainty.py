@@ -2,6 +2,16 @@ import numpy as np
 from numpy.typing import NDArray
 
 
+def format_value_with_uncertainty(
+    value: float,
+    uncertainty: float,
+    unit: str = "",
+) -> str:
+    value = 0.0 if abs(value) < 0.005 else value
+    formatted = f"({value:.2f} +/- {uncertainty:.2f})"
+    return f"{formatted} {unit}" if unit else formatted
+
+
 def inverse_wavelength_uncertainty(
     lambda_m: NDArray[np.float64],
     delta_lambda_m: NDArray[np.float64],
